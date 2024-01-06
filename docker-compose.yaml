@@ -12,3 +12,23 @@ services:
       - ./app:/app
     command: >
       sh -c "python manage.py runserver 0.0.0.0:8000"
+    environment:
+      - DB_HOST=db              ## refer to the name of the service 
+      - DB_NAME=devdb           ## all the env. var should match with the db env  
+      - DB_USER=devuser
+      - DB_PASS=changeme
+    depends_on:                 ## This is to specify that the app service should run after the db service becasue depends on it 
+      - db
+######### Different services 
+  db:                                         ## important the indentation that is at same level of app
+    image: postgres:13-alpine                 ## name of the miage that we are using from docker hub 
+    volumes:
+      - dev-db-data:/var/lib/postgresql/data ## check on the dkr image where are stored 
+    environment:
+      - POSTGRES_DB=devdb                     ## enviroment var for local machine 
+      - POSTGRES_USER=devuser
+      - POSTGRES_PASSWORD=changeme
+
+### Understand properly why this volumes is here and what it is 
+volumes:
+  dev-db-data:
