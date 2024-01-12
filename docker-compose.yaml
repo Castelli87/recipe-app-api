@@ -10,8 +10,10 @@ services:
       - "8000:8000"
     volumes:
       - ./app:/app
-    command: >
-      sh -c "python manage.py runserver 0.0.0.0:8000"
+    command: > ##first use the custom command for db after run the migrations after start the server 
+      sh -c "python manage.py wait_for_db &&   
+             python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
     environment:
       - DB_HOST=db              ## refer to the name of the service 
       - DB_NAME=devdb           ## all the env. var should match with the db env  
