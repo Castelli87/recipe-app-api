@@ -1,17 +1,18 @@
-
 from django.db import models
 
 
-from django.contrib.auth.models import AbstractBaseUser,BaseUserManager,PermissionsMixin
-
-
+from django.contrib.auth.models import (
+    AbstractBaseUser,
+    BaseUserManager,
+    PermissionsMixin,
+)
 
 
 class UserManager(BaseUserManager):
     """Manager for users."""
 
-    def create_user(self,email,password=None,**extra_field):
-        user=self.model(email=email, **extra_field)
+    def create_user(self, email, password=None, **extra_field):
+        user = self.model(email=email, **extra_field)
         user.set_password(password)
         user.save(using=self._db)
 
@@ -20,11 +21,12 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     """User in the system"""
-    email = models.EmailField(max_length = 255, unique =True)
+
+    email = models.EmailField(max_length=255, unique=True)
     name = models.CharField(max_length=255)
-    is_active=models.BooleanField(default=True)
-    is_staff= models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
 
-    objects=UserManager()
+    objects = UserManager()
 
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = "email"
