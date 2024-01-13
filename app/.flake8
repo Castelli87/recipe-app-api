@@ -1,7 +1,8 @@
 [flake8]
-exclude= 
+exclude=
     migrations,
     __pycache__,
     manage.py,
     settings.py
 ignore = F401
+max-line-length = 120
