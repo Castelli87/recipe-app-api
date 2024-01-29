@@ -10,7 +10,6 @@ from django.urls import reverse
 
 from rest_framework import status
 from rest_framework.test import APIClient
-from yaml import serialize
 
 from core.models import Recipe
 
